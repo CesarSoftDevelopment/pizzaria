@@ -4,22 +4,6 @@ const port = 3002;
 const pool = require('./dbConnection');
 app.use(express.json());
 
-app.use((req, res, next) => {
-  // Dar permissão a API para o servidor
-  res.header('Access-Control-Allow-Origin', '*');
-  // O que aceitar de cabeçalho
-  res.header(
-  'Access-Control-Allow-Header',
-  'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-  );
-
-  if(req.method === 'OPTIONS') {
-      res.header('Access-Control-Allow-Methods', 'PUT', 'POST', 'PATCH', 'DELETE', 'GET');
-      return res.status(200).send({});
-  }
-
-  next();
-})
 
 
 
