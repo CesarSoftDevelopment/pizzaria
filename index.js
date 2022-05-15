@@ -39,7 +39,22 @@ app.post('/inserir', (req, res, next) => {
       })
     });
 
-app.delete('/database', (req, res, next) => {
+    app.post('/cadastrar', (req, res, next) => {
+      const obj = req.body;
+      let sql = "INSERT INTO clientes (nome, user, senha, email, sexo)";
+          sql += "VALUES ('" + obj.nome + "', '" + obj.user + "', '" + obj.senha + "', '" + 
+                 obj.email + "', '" + obj.sexo + "');"
+          pool.query(sql, (err, result) => {
+            if(err) {
+              res.status(500).json({"status": "error", "info": "Não foi possível inserir os dados no banco"})
+              console.log(err);
+            }else {
+              res.status(200).json({"status": "ok", "info": "Dados inseridos com sucesso"})
+            }
+          })
+        });
+
+app.delete('/pedidos', (req, res, next) => {
   let sql = "DROP TABLE IF EXISTS pedidos;"
       sql += "CREATE TABLE pedidos (";
       sql += "cliente varchar(100), ";
@@ -67,6 +82,37 @@ app.delete('/database', (req, res, next) => {
     }
   })
 })
+
+app.delete('/clientes', (req, res, next) => {
+  let sql = "DROP TABLE IF EXISTS pedidos;"
+      sql += "CREATE TABLE clientes (";
+      sql += "nome varchar(100), ";
+      sql += "user varchar(100), "
+      sql += "senha varchar(100),"
+      sql += "email varchar(100),"
+      sql += "sexo varchar(20)"
+      sql += ")";
+
+  const mensagem = {
+    status: "",
+    info: ""
+  }
+  
+  pool.query(sql, (err, result) => {
+    if(err) {
+      mensagem.status = "erro"
+      mensagem.info = result
+      res.status(500).json(err)
+      console.log(err)
+    }else {
+     mensagem.status = "ok"
+     mensagem.info = "banco de dados criado com sucesso"
+     res.status(200).json(mensagem.info)
+      
+    }
+  })
+})
+
 
 
 app.listen(port, () => {
