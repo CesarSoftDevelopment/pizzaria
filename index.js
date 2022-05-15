@@ -5,7 +5,7 @@ const pool = require('./dbConnection');
 app.use(express.json());
 
 app.get('/', (req, res, next ) => {
-  res.status(200).json({msg: "Olá mundo"});
+  res.status(200).json({msg: "https://www.fecaf.com.br"});
 })
 
 app.get('/listar', (req, res, next) => {
