@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3002;
+const port = 3000;
 const pool = require('./dbConnection');
 app.use(express.json());
 
