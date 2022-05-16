@@ -96,7 +96,7 @@ app.delete('/pedidos', (req, res, next) => {
 })
 
 app.delete('/clientes', (req, res, next) => {
-  let sql = "DROP TABLE IF EXISTS pedidos;"
+  let sql = "DROP TABLE IF EXISTS clientes;"
       sql += "CREATE TABLE clientes (";
       sql += "nome varchar(100), ";
       sql += "user varchar(100), "
@@ -124,8 +124,6 @@ app.delete('/clientes', (req, res, next) => {
     }
   })
 })
-
-
 
 app.listen(port, () => {
   console.log("server up");
