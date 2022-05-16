@@ -20,6 +20,18 @@ app.get('/listar', (req, res, next) => {
   })
 })
 
+app.get('/clientes', (req, res, next) => {
+  let sql = "SELECT * FROM clientes;"
+
+  pool.query(sql, (err, result) => {
+    if(err) {
+      res.status(503).json({"status": "error"});
+    }else {
+      res.status(200).json({"status": "ok", "info": result.rows})
+    }
+  })
+})
+
 app.post('/inserir', (req, res, next) => {
   const obj = req.body;
   let sql = "INSERT INTO pedidos (cliente, sabor, quantidade, tamanho)";
