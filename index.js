@@ -53,8 +53,8 @@ app.post('/inserir', (req, res, next) => {
 
     app.post('/cadastrar', (req, res, next) => {
       const obj = req.body;
-      let sql = "INSERT INTO clientes (nome, user, senha, email, sexo)";
-          sql += "VALUES ('" + obj.nome + "', '" + obj.user + "', '" + obj.senha + "', '" + 
+      let sql = "INSERT INTO clientes (nome, usuario, senha, email, sexo)";
+          sql += "VALUES ('" + obj.nome + "', '" + obj.usuario + "', '" + obj.senha + "', '" + 
                  obj.email + "', '" + obj.sexo + "');"
           pool.query(sql, (err, result) => {
             if(err) {
@@ -112,14 +112,10 @@ app.delete('/clientes', (req, res, next) => {
   
   pool.query(sql, (err, result) => {
     if(err) {
-      mensagem.status = "erro"
-      mensagem.info = result
-      res.status(500).json(err)
+      res.status(500).json({"status": "error", "info": "Erro ao criar o banco de dados"})
       console.log(err)
     }else {
-     mensagem.status = "ok"
-     mensagem.info = "banco de dados criado com sucesso"
-     res.status(200).json(mensagem.info)
+     res.status(200).json({"status": "ok", "info": "Banco de dados criado com sucesso"})
       
     }
   })
